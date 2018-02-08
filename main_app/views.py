@@ -8,8 +8,6 @@ from .forms import TreasureForm, LoginForm
 import urllib, json
 
 
-
-
 def index(request):
     treasures = Treasure.objects.all()
     form = TreasureForm()
@@ -46,8 +44,10 @@ def login_view(request):
                     return HttpResponseRedirect('/')
                 else:
                     print("The account has been disabled.")
+                    return HttpResponseRedirect('/')
             else:
                 print("The username and/or password is incorrect.")
+                return HttpResponseRedirect('/')
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
@@ -67,7 +67,8 @@ def like_treasure(request):
             treasure.likes = likes
             treasure.save()
     return HttpResponse(likes)
-# 
-# def api_call(request):
-#     r = requests.get('https://api.giphy.com/v1/gifs/search?api_key=LsVDxmHFcu2OtrwOyhw5N1bvvpWiJr2L&q=cats&limit=1&offset=0&rating=G&lang=en')
-#     return HttpResponse(r)
+
+def api_call(request):
+    r = requests.get('https://api.giphy.com/v1/gifs/search?api_key=LsVDxmHFcu2OtrwOyhw5N1bvvpWiJr2L&q=cats&limit=1&offset=0&rating=G&lang=en')
+    print(r)
+    return HttpResponse(r)
