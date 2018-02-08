@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<h4>{{ username }}'s collection:</h4>
+
+<hr/>
+{% for treasure in treasures %}
+<a href="/{{treasure.id}}">
+<p>Name: {{ treasure.name }}</p>
+{% if treasure.value > 0 %}
+<p>Value: {{ treasure.value}}</p>
+{% else %}
+<p>Value: Unknown</p>
+{% endif%}
+</a>
+<hr/>
+{% endfor %}
+
+{% endblock %}
